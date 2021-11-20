@@ -119,7 +119,6 @@ CREATE TABLE KhachHang(
 	soDonBiHuyDoKhachHang int default 0,
 	soDonDaDat int default 0,
 	primary key (maKhachHang)
-	check 
 );
 CREATE TABLE ChiNhanh(
 		maDonVi int indentity(1,1) Primary Key,
