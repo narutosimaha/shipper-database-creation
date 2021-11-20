@@ -108,16 +108,16 @@ CREATE TABLE KhachHang(
 	maKhachHang uniqueidentifier Not null DEFAULT newid(),
 	CCCDorVisa int unique,
 	ho nvarchar(20),
-	tenLot nvarchar(20),
+	tenLot nvarchar(20) default '',
 	Ten nvarchar(20),
 	ngaySinh Date,
 	gioiTinh Bit ,
-	taiKhoan varchar(20),
+	taiKhoan varchar(20) unique,
 	matKhau varchar(20),
-	ngayThamGia DateTime,
+	ngayThamGia DateTime default GETDATE(),
 	loaiKhachHang varchar(20),
-	soDonBiHuyDoKhachHang int,
-	soDonDaDat int,
+	soDonBiHuyDoKhachHang int default 0,
+	soDonDaDat int default 0,
 	primary key (maKhachHang)
 );
 CREATE TABLE ChiNhanh(
