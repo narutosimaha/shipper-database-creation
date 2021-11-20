@@ -16,7 +16,7 @@ taiKhoan nvarchar(50),
 matKhau nvarchar(50),
 loaiNhanVien nvarchar(20),
 chiSoUyTin int,
-isActive bit not null default 1
+isActive bit default 1
 primary key (maNhanVien)
 );
 create table QuanLi(
@@ -28,25 +28,25 @@ maNhanVien uniqueidentifier PRIMARY KEY not null
 
 create table Shipper(
 maNhanVien uniqueidentifier PRIMARY KEY not null,
-trangThai bit,
-rating decimal(2,1) not null,
+trangThai bit default 1,
+rating decimal(2,1) not null check (rating>=1 AND rating<=5),
 soGPLX nvarchar(50) not null,
 bienKiemSoat nvarchar(20) not null
 )
+
 create table DanhGiaShipper(
 maShipper uniqueidentifier,
 maKhachHang uniqueidentifier,
-rating int not null,
+rating decimal(2,1) not null check (rating>=1 AND rating<=5),
 moTa nvarchar(100),
 primary key(maShipper,maKhachHang)
 )
 
- 
 create table DanhGiaNhaHang(
 maNhaHang int,
 maKhachHang uniqueidentifier,
 moTa nvarchar(100),
-rating int not null,
+rating decimal(2,1) not null check (rating>=1 AND rating<=5),
 primary key (maNhaHang,maKhachHang)
 )
 
@@ -58,7 +58,7 @@ primary key(maNhaHang,soDienThoai)
 )
 
 create table NhanVienChiNhanh(
-maNhanVien uniqueidentifier PRIMARY KEY not null,
+maNhanVien uniqueidentifier PRIMARY KEY,
 maDonVi int not null
 )
 
@@ -106,12 +106,12 @@ bienKiemSoatXeGiao nvarchar(20),
 
 CREATE TABLE KhachHang(
 	maKhachHang uniqueidentifier Not null DEFAULT newid(),
-	CCCDorVisa int unique,
-	ho nvarchar(20),
+	CCCDorVisa int unique not null,
+	ho nvarchar(20) not null,
 	tenLot nvarchar(20) default '',
-	Ten nvarchar(20),
+	Ten nvarchar(20) not null,
 	ngaySinh Date,
-	gioiTinh Bit ,
+	gioiTinh nvarchar(10) default 'Nam',
 	taiKhoan varchar(20) unique,
 	matKhau varchar(20),
 	ngayThamGia DateTime default GETDATE(),
@@ -119,9 +119,10 @@ CREATE TABLE KhachHang(
 	soDonBiHuyDoKhachHang int default 0,
 	soDonDaDat int default 0,
 	primary key (maKhachHang)
+	check 
 );
 CREATE TABLE ChiNhanh(
-		maDonVi int Primary Key,
+		maDonVi int indentity(1,1) Primary Key,
 		maSoThue int,
 		diaChi nvarchar(50),
 		maNVQuanLy uniqueidentifier,
@@ -160,7 +161,7 @@ CREATE TABLE ChiTietDonMonAn (
 	maDonMonAn INT,
 	maMonAn INT,
 	soLuong INT DEFAULT 1,
-	apDungUuDai BIT DEFAULT 0 NOT NULL,
+	apDungUuDai BIT DEFAULT 0,
 	donGiaMon INT NOT NULL,
 	donGiaUuDai INT,
 	PRIMARY KEY (maDonMonAn,maMonAn)
@@ -195,7 +196,7 @@ CREATE TABLE NhaHang (
 	hoChuNhaHang	nvarchar(50),
 	tenLotChuNhaHang nvarchar(50),
 	tenChuNhaHang	nvarchar(40),
-	trangThaiNhaHang bit default 1 not null,
+	trangThaiNhaHang bit default 1,
 	rating		decimal(2,1),
 );
 CREATE TABLE HangVanChuyen (
@@ -210,7 +211,7 @@ CREATE TABLE UuDai (
 	maNhaHang	int,
 	maMonAn		int,
 	tenUuDai	nvarchar(20),
-	discount	int,
+	discount	decimal(3,2),  -- 0.00->1.00
 	moTa		nvarchar(50),
 	ngayHetHan	DateTime,
 	CONSTRAINT pk_UuDai primary key (maMonAn,tenUuDai)
@@ -220,7 +221,7 @@ CREATE TABLE TuVanGiaiDap (
 	maKhachHang uniqueidentifier,
 	record		nvarchar(50),
 	vanDe		nvarchar(50),
-	CONSTRAINT pk_TuVanGiaiDap primary key (maTongDaiVien,maKhachHang)
+	CONSTRAINT pk_TuVanGiaiDap primary key (maTongDaiVien,maKhachHang,record)
 )
 --Alter hien
 alter table QuanLi  ADD constraint fk_maQuanLi foreign key (maNhanVien) references NhanVien(maNhanVien)
