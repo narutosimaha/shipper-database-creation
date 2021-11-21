@@ -114,6 +114,7 @@ CREATE TABLE KhachHang(
 	gioiTinh nvarchar(10) default 'Nam',
 	taiKhoan varchar(20) unique,
 	matKhau varchar(20),
+	diaChi varchar(50),
 	ngayThamGia DateTime default GETDATE(),
 	loaiKhachHang varchar(20),
 	soDonBiHuyDoKhachHang int default 0,
