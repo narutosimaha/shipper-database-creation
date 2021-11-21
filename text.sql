@@ -117,7 +117,6 @@ CREATE TABLE KhachHang(
 	ngayThamGia DateTime default GETDATE(),
 	loaiKhachHang varchar(20),
 	soDonBiHuyDoKhachHang int default 0,
-	soDonDaDat int default 0,
 	primary key (maKhachHang)
 );
 CREATE TABLE ChiNhanh(
