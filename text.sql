@@ -37,17 +37,19 @@ bienKiemSoat nvarchar(20) not null
 create table DanhGiaShipper(
 maShipper uniqueidentifier,
 maKhachHang uniqueidentifier,
+ngayDanhGia datetime,
 rating decimal(2,1) not null check (rating>=1 AND rating<=5),
 moTa nvarchar(100),
-primary key(maShipper,maKhachHang)
+primary key(maShipper,maKhachHang,ngayDanhGia)
 )
 
 create table DanhGiaNhaHang(
 maNhaHang int,
 maKhachHang uniqueidentifier,
+ngayDanhGia datetime,
 moTa nvarchar(100),
 rating decimal(2,1) not null check (rating>=1 AND rating<=5),
-primary key (maNhaHang,maKhachHang)
+primary key (maNhaHang,maKhachHang,ngayDanhGia)
 )
 
 
