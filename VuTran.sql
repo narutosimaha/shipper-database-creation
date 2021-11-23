@@ -156,7 +156,7 @@ CREATE OR ALTER PROCEDURE thongTinUuDai
 AS
 	SELECT M.tenMonAn,M.donGia , M.donGia*(1-U.discount) as giaDaUuDai,U.tenUuDai,U.discount,U.moTa,U.ngayHetHan
 	FROM MonAn M JOIN UuDai U ON (M.maMonAn=U.maMonAn)
-	WHERE M.maMonAn=1
+	WHERE M.maMonAn=@idMonAn
 	ORDER BY discount DESC
 
 EXEC thongtinUuDai 1
