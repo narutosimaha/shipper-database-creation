@@ -39,7 +39,7 @@ maShipper uniqueidentifier,
 maKhachHang uniqueidentifier,
 ngayDanhGia datetime default GETDATE(),
 rating int not null check (rating>=1 AND rating<=5),
-moTa nvarchar(100),
+moTa nvarchar(300),
 primary key(maShipper,maKhachHang,ngayDanhGia)
 )
 
@@ -47,7 +47,7 @@ create table DanhGiaNhaHang(
 maNhaHang int,
 maKhachHang uniqueidentifier,
 ngayDanhGia datetime default GETDATE(),
-moTa nvarchar(100),
+moTa nvarchar(300),
 rating int not null check (rating>=1 AND rating<=5),
 primary key (maNhaHang,maKhachHang,ngayDanhGia)
 )
@@ -229,7 +229,7 @@ CREATE TABLE UuDai (
 	maMonAn		int,
 	tenUuDai	nvarchar(20),
 	discount	decimal(3,2) check(discount>=0 and discount <=1),  -- 0.00->1.00
-	moTa		nvarchar(50),
+	moTa		nvarchar(300),
 	ngayHetHan	DateTime,
 	CONSTRAINT pk_UuDai primary key (maMonAn,tenUuDai)
 );
