@@ -139,6 +139,7 @@ CREATE TABLE KhachHang(
 CREATE TABLE ChiNhanh(
 		maDonVi int indentity(1,1) Primary Key,
 		maSoThue int,
+		tenChiNhanh char(50),
 		diaChi nvarchar(50),
 		maNVQuanLy uniqueidentifier,
 		maChiNhanhCha int,
