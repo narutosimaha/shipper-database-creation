@@ -68,8 +68,7 @@ AS
 		END
 GO
 
-ALTER TABLE NhanVien
-ADD isActive BIT DEFAULT 1;
+
 
 GO
 CREATE TRIGGER deleteNhanVien ON NhanVien 
