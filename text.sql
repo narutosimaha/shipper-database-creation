@@ -200,7 +200,7 @@ CREATE TABLE MonAn (
 	maMonAn		int identity(1,1) Primary Key,
 	tenMonAn	nvarchar(50) not null,
 	donGia		int not null,
-	moTa		nvarchar(50),
+	moTa		nvarchar(300),
 	maNhaHangOffer	int not null,	
 );
 CREATE TABLE NhaHang (
@@ -219,7 +219,7 @@ CREATE TABLE NhaHang (
 CREATE TABLE HangVanChuyen (
 	maDonGiaoGiup	int,
 	maHang		int,
-	moTa		nvarchar(50),
+	moTa		nvarchar(300),
 	tongKhoiLuong	int,
 	LoaiHang	nvarchar(20),
 	CONSTRAINT pk_HangVanChuyen primary key (maHang,maDonGiaoGiup)
