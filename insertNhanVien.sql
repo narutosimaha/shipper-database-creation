@@ -96,17 +96,19 @@ VALUES (N'Phở bò',32000,N'Có bao gồm tái, nạm, gân va sụn',1),
 INSERT INTO UuDai(maNhaHang,maMonAn,tenUuDai,discount,moTa,ngayHetHan)
 VALUES
 (1,1,N'Giỗ tổ Hùng Vương',0.3,'','2021-12-15'),
-(1,2,N'Cho các bạn tên HÙng',0.5,'','2021-12-07'),
+(1,2,N'Giảm giá cho các bạn tên Hùng',0.5,'','2021-12-07'),
 (6,4,N'Nhân dịp Nô-en',0.25,'','2021-12-24'),
-(1,1,N'Ngày sinh chủ nhà hàng',0.3,'','2021-12-15'),
-(1,1,N'Giỗ tổ Hùng Vương',0.3,'','2021-12-15'),
-(1,1,N'Giỗ tổ Hùng Vương',0.3,'','2021-12-15'),
-(1,1,N'Giỗ tổ Hùng Vương',0.3,'','2021-12-15'),
-(1,1,N'Giỗ tổ Hùng Vương',0.3,'','2021-12-15'),
-(1,1,N'Giỗ tổ Hùng Vương',0.3,'','2021-12-15'),
-(1,1,N'Giỗ tổ Hùng Vương',0.3,'','2021-12-15'),
-(1,1,N'Giỗ tổ Hùng Vương',0.3,'','2021-12-15'),
-(1,1,N'Giỗ tổ Hùng Vương',0.3,'','2021-12-15'),
+(6,6,N'Ngày sinh chủ nhà hàng',0.3,'','2021-12-01'),
+(5,8,N'Love day',0.333,N'Giảm giá cho cặp đôi','2021-11-15'),
+(5,9,N'Best Short',0.7,N'Giảm giá cho các bạn thấp hơn 1m55','2022-01-23'),
+(2,11,N'Only English',0.5,N'Giảm giá cho các bạn Ielts 7.0','2021-12-22'),
+(3,14,N'No Iphone',0.2,N'Bất cứ ai không có iphone đều được giảm ','2021-11-26'),
+(4,16,N'Guitar Knowledge',0.65,N'Giảm giá cực lớn cho các bạn buổi diễn guitar tại quán','2021-12-30'),
+(9,18,N'Impairment Pleasure',1.00,N'Giảm 100% cho người khuyết tật','2022-01-30'),
+(10,19,N'God Bless',0.5,N'Guamr nữa giá cho người theo đạo thiên chúa','2021-12-26'),
+(7,20,N'Happy Mother',0.35,N'Giảm giá cho các chị em nội trợ','2021-12-15')
+
+
 INSERT INTO SDTNhaHang(maNhaHang,soDienThoai)
 VALUES
 (1,'01234567891'),

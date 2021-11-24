@@ -19,6 +19,7 @@ chiSoUyTin decimal(2,1) default 5 check(chiSoUyTin>0 AND chiSoUyTin<6),
 isActive bit default 1,
 primary key (maNhanVien)
 );
+
 create table QuanLi(
 maNhanVien uniqueidentifier PRIMARY KEY not null
 )
@@ -200,7 +201,7 @@ CREATE TABLE MonAn (
 	maMonAn		int identity(1,1) Primary Key,
 	tenMonAn	nvarchar(50) not null,
 	donGia		int not null,
-	moTa		nvarchar(50),
+	moTa		nvarchar(300),
 	maNhaHangOffer	int not null,	
 );
 CREATE TABLE NhaHang (
@@ -219,7 +220,7 @@ CREATE TABLE NhaHang (
 CREATE TABLE HangVanChuyen (
 	maDonGiaoGiup	int,
 	maHang		int,
-	moTa		nvarchar(50),
+	moTa		nvarchar(300),
 	tongKhoiLuong	int,
 	LoaiHang	nvarchar(20),
 	CONSTRAINT pk_HangVanChuyen primary key (maHang,maDonGiaoGiup)
@@ -241,85 +242,85 @@ CREATE TABLE TuVanGiaiDap (
 	CONSTRAINT pk_TuVanGiaiDap primary key (maTongDaiVien,maKhachHang,record)
 )
 --Alter hien
-alter table QuanLi  ADD constraint fk_maQuanLi foreign key (maNhanVien) references NhanVien(maNhanVien)
-alter table TongDaiVien ADD constraint fk_maTongDai foreign key (maNhanVien) references NhanVien(maNhanVien)
-alter table Shipper ADD constraint fk_maShipper foreign key (maNhanVien) references NhanVien(maNhanVien)
-alter table Shipper ADD constraint fk_bienKiemSoat foreign key (bienKiemSoat) references PhuongTien(bienKiemSoat)
-alter table DanhGiaShipper ADD constraint fk_maShipperD foreign key (maShipper) references Shipper(maNhanVien)
-alter table DanhGiaShipper ADD constraint fk_maKhachHang foreign key (maKhachHang) references KhachHang(maKhachHang)
-alter table DanhGiaNhaHang ADD constraint fk_maKhachHangN foreign key(maKhachHang) references KhachHang(maKhachHang)
-alter table DanhGiaNhaHang ADD constraint fk_maNhaHang foreign key(maNhaHang) references NhaHang(maNhaHang)
-alter table SDTNhaHang ADD constraint fk_maNhaHangN foreign key(maNhaHang) references NhaHang(maNhaHang)
-alter table NhanVienChiNhanh add constraint fk_maNhanVienChiNhanh foreign key(maNhanVien) references NhanVien(maNhanVien)
-alter table NhanVienChiNhanh add constraint fk_maDonVi foreign key(maDonVi) references ChiNhanh(maDonVi)
+alter table QuanLi  ADD constraint fk_maQuanLi foreign key (maNhanVien) references NhanVien(maNhanVien) ON DELETE NO ACTION;
+alter table TongDaiVien ADD constraint fk_maTongDai foreign key (maNhanVien) references NhanVien(maNhanVien) ON DELETE CASCADE;
+alter table Shipper ADD constraint fk_maShipper foreign key (maNhanVien) references NhanVien(maNhanVien) ON DELETE CASCADE;
+alter table Shipper ADD constraint fk_bienKiemSoat foreign key (bienKiemSoat) references PhuongTien(bienKiemSoat) ON DELETE CASCADE;
+alter table DanhGiaShipper ADD constraint fk_maShipperD foreign key (maShipper) references Shipper(maNhanVien) ON DELETE CASCADE;
+alter table DanhGiaShipper ADD constraint fk_maKhachHang foreign key (maKhachHang) references KhachHang(maKhachHang) ON DELETE CASCADE;
+alter table DanhGiaNhaHang ADD constraint fk_maKhachHangN foreign key(maKhachHang) references KhachHang(maKhachHang) ON DELETE CASCADE;
+alter table DanhGiaNhaHang ADD constraint fk_maNhaHang foreign key(maNhaHang) references NhaHang(maNhaHang) ON DELETE CASCADE;
+alter table SDTNhaHang ADD constraint fk_maNhaHangN foreign key(maNhaHang) references NhaHang(maNhaHang) ON DELETE CASCADE;
+alter table NhanVienChiNhanh add constraint fk_maNhanVienChiNhanh foreign key(maNhanVien) references NhanVien(maNhanVien) ON DELETE CASCADE;
+alter table NhanVienChiNhanh add constraint fk_maDonVi foreign key(maDonVi) references ChiNhanh(maDonVi) ON DELETE CASCADE;
 
 --Alter Vũ
-ALTER TABLE KhieuNai
-ADD  FOREIGN KEY (maDonKhieuNai) REFERENCES DonKhieuNai(maDonKhieuNai)
+ALTER TABLE KhieuNai 
+ADD  FOREIGN KEY (maDonKhieuNai) REFERENCES DonKhieuNai(maDonKhieuNai) ON DELETE NO ACTION;
 
 ALTER TABLE KhieuNai
-ADD FOREIGN KEY (maTongDaiVien) REFERENCES TongDaiVien(maNhanVien)
+ADD FOREIGN KEY (maTongDaiVien) REFERENCES TongDaiVien(maNhanVien) ON DELETE NO ACTION;
 
 ALTER TABLE KhieuNai
-ADD FOREIGN KEY (maKhachHang) REFERENCES KhachHang(maKhachHang)
+ADD FOREIGN KEY (maKhachHang) REFERENCES KhachHang(maKhachHang) ON DELETE NO ACTION;
 
 ALTER TABLE ChiTietDonMonAn
-ADD FOREIGN KEY (maDonMonAn) REFERENCES DonMonAn(maDon)
+ADD FOREIGN KEY (maDonMonAn) REFERENCES DonMonAn(maDon) ON DELETE NO ACTION;
 
 ALTER TABLE ChiTietDonMonAn
-ADD FOREIGN KEY (maMonAn) REFERENCES MonAn(maMonAn)
+ADD FOREIGN KEY (maMonAn) REFERENCES MonAn(maMonAn) ON DELETE NO ACTION;
 
 ALTER TABLE DonKhuyenMai
-ADD FOREIGN KEY (maKhuyenMai) REFERENCES MaKhuyenMai(maKhuyenMai)
+ADD FOREIGN KEY (maKhuyenMai) REFERENCES MaKhuyenMai(maKhuyenMai) ON DELETE NO ACTION;
 
 ALTER TABLE DonKhuyenMai
-ADD FOREIGN KEY (maDon) REFERENCES DonVanChuyen(maDon)
+ADD FOREIGN KEY (maDon) REFERENCES DonVanChuyen(maDon) ON DELETE NO ACTION;
 
 ALTER TABLE QuyTrachNhiem
-ADD FOREIGN KEY (maNhanVien) REFERENCES NhanVien(maNhanVien)
+ADD FOREIGN KEY (maNhanVien) REFERENCES NhanVien(maNhanVien) ON DELETE NO ACTION;
 
 ALTER TABLE QuyTrachNhiem
-ADD FOREIGN KEY (maDonKhieuNai) REFERENCES DonKhieuNai(maDonKhieuNai)
+ADD FOREIGN KEY (maDonKhieuNai) REFERENCES DonKhieuNai(maDonKhieuNai) ON DELETE NO ACTION;
 
 ALTER TABLE QuyTrachNhiem
-ADD FOREIGN KEY (maQuanLy) REFERENCES QuanLi(maNhanVien)
+ADD FOREIGN KEY (maQuanLy) REFERENCES QuanLi(maNhanVien) ON DELETE NO ACTION;
 --alter Định
 ALTER TABLE ChiNhanh
-	ADD CONSTRAINT FK_ChiNhanhChiNhanh foreign key (maChiNhanhCha) references ChiNhanh (maDonVi)
+	ADD CONSTRAINT FK_ChiNhanhChiNhanh foreign key (maChiNhanhCha) references ChiNhanh (maDonVi) ON DELETE NO ACTION;
 ALTER TABLE ChiNhanh
-	ADD CONSTRAINT FK_ChiNhanhQuanLi foreign key (maNVQuanLy) references QuanLi (maNhanVien)
+	ADD CONSTRAINT FK_ChiNhanhQuanLi foreign key (maNVQuanLy) references QuanLi (maNhanVien) ON DELETE CASCADE;
 ALTER TABLE DonKhieuNai
-	ADD CONSTRAINT FK_DonKhieuNaiQuanLi foreign key (maQuanLyKiemDuyet) references QuanLi (maNhanVien)
+	ADD CONSTRAINT FK_DonKhieuNaiQuanLi foreign key (maQuanLyKiemDuyet) references QuanLi (maNhanVien) ON DELETE NO ACTION;
 ALTER TABLE MaKhuyenMai
-	ADD CONSTRAINT FK_MaKhuyenMaiKhachHang foreign key (maKhachHangSoHuu) references KhachHang (maKhachHang)
+	ADD CONSTRAINT FK_MaKhuyenMaiKhachHang foreign key (maKhachHangSoHuu) references KhachHang (maKhachHang) ON DELETE CASCADE;
 ALTER TABLE SdtKhachHang
-	ADD CONSTRAINT FK_SdtKhachHangKhachHang foreign key (maKhachHang) references KhachHang (maKhachHang)
+	ADD CONSTRAINT FK_SdtKhachHangKhachHang foreign key (maKhachHang) references KhachHang (maKhachHang) ON DELETE CASCADE;
 --Alter Thái
 ALTER TABLE MonAn
-	ADD CONSTRAINT FK_MonAnidNhaHangOffer foreign key (maNhaHangOffer) references NhaHang (maNhaHang)
+	ADD CONSTRAINT FK_MonAnidNhaHangOffer foreign key (maNhaHangOffer) references NhaHang (maNhaHang) ON DELETE CASCADE;
 ALTER TABLE HangVanChuyen
-	ADD CONSTRAINT FK_HangVanChuyenidDonGiaoGiup foreign key (maDonGiaoGiup) references DonGiaoHangGiup (maDon)
+	ADD CONSTRAINT FK_HangVanChuyenidDonGiaoGiup foreign key (maDonGiaoGiup) references DonGiaoHangGiup (maDon) ON DELETE CASCADE;
 ALTER TABLE UuDai
-	ADD CONSTRAINT FK_UuDaiidNhaHang foreign key (maNhaHang) references NhaHang (maNhaHang)
+	ADD CONSTRAINT FK_UuDaiidNhaHang foreign key (maNhaHang) references NhaHang (maNhaHang) ON DELETE CASCADE;
 ALTER TABLE UuDai
-	ADD CONSTRAINT FK_UuDaiidMonAn foreign key (maMonAn) references MonAn (maMonAn)
+	ADD CONSTRAINT FK_UuDaiidMonAn foreign key (maMonAn) references MonAn (maMonAn) ON DELETE NO ACTION;
 ALTER TABLE TuVanGiaiDap
-	ADD CONSTRAINT FK_TuVanGiaiDapmaTongDaiVien foreign key (maTongDaiVien) references TongDaiVien (maNhanVien)
+	ADD CONSTRAINT FK_TuVanGiaiDapmaTongDaiVien foreign key (maTongDaiVien) references TongDaiVien (maNhanVien) ON DELETE CASCADE;
 ALTER TABLE TuVanGiaiDap
-	ADD CONSTRAINT FK_TuVanGiaiDapmaKhachHang foreign key (maKhachHang) references KhachHang (maKhachHang)
+	ADD CONSTRAINT FK_TuVanGiaiDapmaKhachHang foreign key (maKhachHang) references KhachHang (maKhachHang) ON DELETE CASCADE;
 
 --alter Thương
 Alter table DonGiaoHangGiup
-	Add CONSTRAINT fk_idDonGiaoHangGiup foreign key (maDon) references DonVanChuyen(maDon);
+	Add CONSTRAINT fk_idDonGiaoHangGiup foreign key (maDon) references DonVanChuyen(maDon) ON DELETE CASCADE;
 Alter table DonMonAn
-	Add CONSTRAINT fk_idDonMonAn foreign key (maDon) references DonVanChuyen(maDon);
+	Add CONSTRAINT fk_idDonMonAn foreign key (maDon) references DonVanChuyen(maDon) ON DELETE CASCADE;
 Alter table NhanGiaoHang_DVC_PT_SP
-	Add CONSTRAINT fk_bienKiemSoatt foreign key (bienKiemSoatXeGiao) references PhuongTien(bienKiemSoat);
+	Add CONSTRAINT fk_bienKiemSoatt foreign key (bienKiemSoatXeGiao) references PhuongTien(bienKiemSoat) ON DELETE CASCADE;
 Alter table NhanGiaoHang_DVC_PT_SP
-	Add CONSTRAINT fk_idDon foreign key (maDon) references DonVanChuyen(maDon);
+	Add CONSTRAINT fk_idDon foreign key (maDon) references DonVanChuyen(maDon) ON DELETE CASCADE;
 Alter table NhanGiaoHang_DVC_PT_SP
-	Add CONSTRAINT fk_maShipperr foreign key (maShipper) references Shipper(maNhanVien);
+	Add CONSTRAINT fk_maShipperr foreign key (maShipper) references Shipper(maNhanVien) ON DELETE NO ACTION;
 Alter table DonVanChuyen
-	Add  foreign key (phuongThucThanhToan) references PhuongThucThanhToan(maPhuongThuc);
+	Add  foreign key (phuongThucThanhToan) references PhuongThucThanhToan(maPhuongThuc) ON DELETE NO ACTION;
 Alter table DonVanChuyen
-	Add  foreign key (trangThaiDonHang) references TrangThaiDon(maTrangThai);
+	Add  foreign key (trangThaiDonHang) references TrangThaiDon(maTrangThai) ON DELETE NO ACTION;
