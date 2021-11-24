@@ -71,20 +71,20 @@ maDon int identity(1,1) primary key,
 diaChiGiaoHang nvarchar(100),
 thoiGianGiaoHang datetime,
 thoiGianNhan datetime,
-trangThaiDonHang nvarchar(30),
+trangThaiDonHang int,
 tienShip int default 0,
-phuongThucThanhToan nvarchar(30),
+phuongThucThanhToan int,
 maKhachHang uniqueidentifier,
 );
 
-CREATE TABLE trangThaiDon(
+CREATE TABLE TrangThaiDon(
 maTrangThai int identity(1,1) primary key,
-trangThai unique not null
+trangThai nvarchar(30) unique not null
 );
 
-CREATE TABLE phuongThucThanhToan(
+CREATE TABLE PhuongThucThanhToan(
 maPhuongThuc int identity(1,1) primary key,
-trangThai unique not null
+trangThai nvarchar(30) unique not null
 );
 
 CREATE TABLE PhuongTien(
@@ -318,3 +318,7 @@ Alter table NhanGiaoHang_DVC_PT_SP
 	Add CONSTRAINT fk_idDon foreign key (maDon) references DonVanChuyen(maDon);
 Alter table NhanGiaoHang_DVC_PT_SP
 	Add CONSTRAINT fk_maShipperr foreign key (maShipper) references Shipper(maNhanVien);
+Alter table DonVanChuyen
+	Add  foreign key (phuongThucThanhToan) references PhuongThucThanhToan(maPhuongThuc);
+Alter table DonVanChuyen
+	Add  foreign key (trangThaiDonHang) references TrangThaiDon(maTrangThai);
