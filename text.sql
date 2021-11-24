@@ -8,15 +8,15 @@ go
 create table NhanVien(
 maNhanVien uniqueidentifier Not null DEFAULT newid(),   
 ho nvarchar(20) not null,
-tenLot nvarchar(20),
+tenLot nvarchar(20) default '',
 ten nvarchar(20) not null,
 ngayVaoLam date default GETDATE(),
 luong decimal default 0,
-taiKhoan nvarchar(50),
+taiKhoan nvarchar(50) unique,
 matKhau nvarchar(50),
 loaiNhanVien nvarchar(20),
-chiSoUyTin int,
-isActive bit default 1
+chiSoUyTin decimal(2,1) default 5 check(chiSoUyTin>0 AND chiSoUyTin<6),
+isActive bit default 1,
 primary key (maNhanVien)
 );
 create table QuanLi(
@@ -29,7 +29,7 @@ maNhanVien uniqueidentifier PRIMARY KEY not null
 create table Shipper(
 maNhanVien uniqueidentifier PRIMARY KEY not null,
 trangThai bit default 1,
-rating decimal(2,1) not null check (rating>=1 AND rating<=5),
+rating decimal(2,1) check (rating>=1 AND rating<=5) default 5,
 soGPLX nvarchar(50) not null,
 bienKiemSoat nvarchar(20) not null
 )
@@ -37,8 +37,8 @@ bienKiemSoat nvarchar(20) not null
 create table DanhGiaShipper(
 maShipper uniqueidentifier,
 maKhachHang uniqueidentifier,
-ngayDanhGia datetime,
-rating decimal(2,1) not null check (rating>=1 AND rating<=5),
+ngayDanhGia datetime default GETDATE(),
+rating int not null check (rating>=1 AND rating<=5),
 moTa nvarchar(100),
 primary key(maShipper,maKhachHang,ngayDanhGia)
 )
@@ -46,16 +46,16 @@ primary key(maShipper,maKhachHang,ngayDanhGia)
 create table DanhGiaNhaHang(
 maNhaHang int,
 maKhachHang uniqueidentifier,
-ngayDanhGia datetime,
+ngayDanhGia datetime default GETDATE(),
 moTa nvarchar(100),
-rating decimal(2,1) not null check (rating>=1 AND rating<=5),
+rating int not null check (rating>=1 AND rating<=5),
 primary key (maNhaHang,maKhachHang,ngayDanhGia)
 )
 
 
 create table SDTNhaHang(
 maNhaHang int,
-soDienThoai char(11)
+soDienThoai char(11),
 primary key(maNhaHang,soDienThoai)
 )
 
@@ -72,32 +72,45 @@ diaChiGiaoHang nvarchar(100),
 thoiGianGiaoHang datetime,
 thoiGianNhan datetime,
 trangThaiDonHang nvarchar(30),
-tienShip int,
+tienShip int default 0,
 phuongThucThanhToan nvarchar(30),
 maKhachHang uniqueidentifier,
 );
+
+CREATE TABLE trangThaiDon(
+maTrangThai int identity(1,1) primary key,
+trangThai unique not null
+);
+
+CREATE TABLE phuongThucThanhToan(
+maPhuongThuc int identity(1,1) primary key,
+trangThai unique not null
+);
+
 CREATE TABLE PhuongTien(
 bienKiemSoat nvarchar(20) primary key,
 loaiPhuongTien nvarchar(50),
 hinhAnhXe varchar(255),
 giayPhepSoHuuXe varchar(255),
 );
+
 CREATE TABLE DonGiaoHangGiup(
 maDon int primary key,
 tenNguoiNhan nvarchar(50),
-soDienThoaiNguoiNhan nvarchar(50),
-diaChiNhan nvarchar(100),
+soDienThoaiNguoiNhan nvarchar(50) not null,
+diaChiNhan nvarchar(100) not null,
 chiTietChoGiao nvarchar(255),
 dichVuDonHang nvarchar(255),
 dichVuThem nvarchar(255),
 ghiChuChoShipper nvarchar(255),
 tongKhoiLuong float,
-
 );
+
 CREATE TABLE DonMonAn(
 maDon int primary key,
 tongTienMon float,
 );
+
 CREATE TABLE NhanGiaoHang_DVC_PT_SP(
 maDon int primary key,
 maShipper uniqueidentifier not null,
@@ -107,12 +120,12 @@ bienKiemSoatXeGiao nvarchar(20),
 --Định
 
 CREATE TABLE KhachHang(
-	maKhachHang uniqueidentifier Not null DEFAULT newid(),
-	CCCDorVisa int unique not null,
+	maKhachHang uniqueidentifier default newid(),
+	CCCDorVisa int unique,
 	ho nvarchar(20) not null,
 	tenLot nvarchar(20) default '',
 	Ten nvarchar(20) not null,
-	ngaySinh Date,
+	ngaySinh Date CHECK (DATEDIFF(year, ngaySinh ,GETDATE())>12),
 	gioiTinh nvarchar(10) default 'Nam',
 	taiKhoan varchar(20) unique,
 	matKhau varchar(20),
@@ -120,8 +133,8 @@ CREATE TABLE KhachHang(
 	ngayThamGia DateTime default GETDATE(),
 	loaiKhachHang varchar(20),
 	soDonBiHuyDoKhachHang int default 0,
-	primary key (maKhachHang),
 	soDonDaDat int default=0,
+	primary key (maKhachHang)
 );
 CREATE TABLE ChiNhanh(
 		maDonVi int indentity(1,1) Primary Key,
@@ -135,17 +148,18 @@ CREATE TABLE DonKhieuNai(
 	maDonKhieuNai int identity(1,1) primary key,
 	noiDung nvarchar(500),
 	maQuanLyKiemDuyet uniqueidentifier,
-	vanDe nvarchar(50),
+	vanDe nvarchar(50) not null,
 );
 
 CREATE TABLE MaKhuyenMai(
-	maKhuyenMai int primary key,
-	discount float, --0->1
-	dieuKienApDung nvarchar(20),
+	maKhuyenMai int identity(1,1) primary key,
+	discount float check(discount>=0 AND discount<=1), --0->1
+	dieuKienApDung nvarchar(200),
 	ngayHetHan DateTime,
-	moTa nvarchar(50),
+	moTa nvarchar(200),
 	maKhachHangSoHuu uniqueidentifier,
 );
+
 CREATE TABLE SdtKhachHang(
 	maKhachHang uniqueidentifier ,
 	SDT char(11),
@@ -164,7 +178,7 @@ CREATE TABLE ChiTietDonMonAn (
 	maMonAn INT,
 	soLuong INT DEFAULT 1,
 	apDungUuDai BIT DEFAULT 0,
-	donGiaMon INT NOT NULL,
+	donGiaMon INT,
 	donGiaUuDai INT,
 	PRIMARY KEY (maDonMonAn,maMonAn)
 )
@@ -182,18 +196,18 @@ CREATE TABLE QuyTrachNhiem(
 --Thái
 
 CREATE TABLE MonAn (
-	maMonAn		int		Primary Key,
-	tenMonAn	nvarchar(50),
-	donGia		int,
+	maMonAn		int identity(1,1) Primary Key,
+	tenMonAn	nvarchar(50) not null,
+	donGia		int not null,
 	moTa		nvarchar(50),
 	maNhaHangOffer	int not null,	
 );
 CREATE TABLE NhaHang (
 	maNhaHang	int identity(1,1) Primary Key,
-	tenNhaHang	nvarchar(50),
-	diaChi		nvarchar(50),
+	tenNhaHang	nvarchar(50) not null,
+	diaChi		nvarchar(50) not null,
 	maSoGPKD	nvarchar(50),
-	taiKhoan	nvarchar(50),
+	taiKhoan	nvarchar(50) unique,
 	matKhau		nvarchar(50),
 	hoChuNhaHang	nvarchar(50),
 	tenLotChuNhaHang nvarchar(50),
@@ -213,7 +227,7 @@ CREATE TABLE UuDai (
 	maNhaHang	int,
 	maMonAn		int,
 	tenUuDai	nvarchar(20),
-	discount	decimal(3,2),  -- 0.00->1.00
+	discount	decimal(3,2) check(discount>=0 and discount <=1),  -- 0.00->1.00
 	moTa		nvarchar(50),
 	ngayHetHan	DateTime,
 	CONSTRAINT pk_UuDai primary key (maMonAn,tenUuDai)
@@ -221,7 +235,7 @@ CREATE TABLE UuDai (
 CREATE TABLE TuVanGiaiDap (
 	maTongDaiVien	uniqueidentifier,
 	maKhachHang uniqueidentifier,
-	record		nvarchar(50),
+	record		nvarchar(100),
 	vanDe		nvarchar(50),
 	CONSTRAINT pk_TuVanGiaiDap primary key (maTongDaiVien,maKhachHang,record)
 )
