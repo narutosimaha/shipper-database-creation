@@ -323,3 +323,14 @@ Alter table DonVanChuyen
 	Add  foreign key (phuongThucThanhToan) references PhuongThucThanhToan(maPhuongThuc);
 Alter table DonVanChuyen
 	Add  foreign key (trangThaiDonHang) references TrangThaiDon(maTrangThai);
+
+
+--bổ sung thuộc tính: Thương
+ALTER TABLE ChiNhanh
+	ADD soLuongNhanVien int DEFAULT 0;
+ALTER TABLE ChiNhanh
+	ADD ngayQLyBatDauLamViec date default GETDATE();
+ALTER TABLE ChiNhanh
+	ADD ngayQLyBatDauLamViec date default GETDATE();
+ALTER TABLE ChiNhanh
+	ADD tenChiNhanh nvarchar(30) null;
