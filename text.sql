@@ -227,7 +227,7 @@ CREATE TABLE HangVanChuyen (
 CREATE TABLE UuDai (
 	maNhaHang	int,
 	maMonAn		int,
-	tenUuDai	nvarchar(20),
+	tenUuDai	nvarchar(200),
 	discount	decimal(3,2) check(discount>=0 and discount <=1),  -- 0.00->1.00
 	moTa		nvarchar(300),
 	ngayHetHan	DateTime,
