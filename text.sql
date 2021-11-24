@@ -133,11 +133,11 @@ CREATE TABLE KhachHang(
 	ngayThamGia DateTime default GETDATE(),
 	loaiKhachHang varchar(20),
 	soDonBiHuyDoKhachHang int default 0,
-	soDonDaDat int default=0,
+	soDonDaDat int default 0,
 	primary key (maKhachHang)
 );
 CREATE TABLE ChiNhanh(
-		maDonVi int indentity(1,1) Primary Key,
+		maDonVi int identity(1,1) Primary Key,
 		maSoThue int,
 		tenChiNhanh char(50),
 		diaChi nvarchar(50),
