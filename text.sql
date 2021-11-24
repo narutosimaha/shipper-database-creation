@@ -120,7 +120,8 @@ CREATE TABLE KhachHang(
 	ngayThamGia DateTime default GETDATE(),
 	loaiKhachHang varchar(20),
 	soDonBiHuyDoKhachHang int default 0,
-	primary key (maKhachHang)
+	primary key (maKhachHang),
+	soDonDaDat int default=0,
 );
 CREATE TABLE ChiNhanh(
 		maDonVi int indentity(1,1) Primary Key,
