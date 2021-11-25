@@ -3,7 +3,7 @@
 -------------------CAU1 PROCEDURE INSERT BẢNG NHÂN VIÊN--------------------------
 CREATE OR ALTER PROCEDURE insertNhanVien
 @ho nvarchar(20),@tenLot nvarchar(20) ='',@ten nvarchar(20), @luong decimal,@taiKhoan nvarchar(50)='',
-@matKhau nvarchar(50) ='',@loaiNhanVien nvarchar(20)='',@chiSoUyTin int=5,@ngaySinh Date
+@matKhau nvarchar(50) ='',@loaiNhanVien nvarchar(20)='',@chiSoUyTin decimal(2,1)=5.0,@ngaySinh Date
 AS
 	IF(@chiSoUyTin>5 OR @chiSoUyTin<1)
 		BEGIN 
