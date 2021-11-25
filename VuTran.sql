@@ -7,7 +7,7 @@ CREATE OR ALTER PROCEDURE insertNhanVien
 AS
 	IF(@chiSoUyTin>5 OR @chiSoUyTin<1)
 		BEGIN 
-		--RAISERROR('Chi so uy tin phai la so nguyen tu 1 den 5',16,1);
+			RAISERROR('Chi so uy tin phai la so nguyen tu 1 den 5',16,1);
 			RETURN;
 		END
 	IF(@luong < 0)
