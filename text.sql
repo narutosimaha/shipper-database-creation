@@ -16,6 +16,7 @@ matKhau nvarchar(50),
 loaiNhanVien nvarchar(20),
 chiSoUyTin decimal(2,1) default 5 check(chiSoUyTin>0 AND chiSoUyTin<6),
 isActive bit default 1,
+ngaySinh date,
 primary key (maNhanVien)
 );
 create table QuanLi(
@@ -107,7 +108,7 @@ tongKhoiLuong float,
 
 CREATE TABLE DonMonAn(
 maDon int primary key,
-tongTienMon float DEFAULT 0,
+tongTienMon float,
 );
 
 CREATE TABLE NhanGiaoHang_DVC_PT_SP(
