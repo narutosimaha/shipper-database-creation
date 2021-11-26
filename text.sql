@@ -1,5 +1,4 @@
 CREATE DATABASE Shipper
-
 go
 use Shipper;
 
@@ -64,16 +63,16 @@ maNhanVien uniqueidentifier PRIMARY KEY,
 maDonVi int not null
 )
 
---Thương
+--ThÆ°Æ¡ng
 
 CREATE TABLE DonVanChuyen(
 maDon int identity(1,1) primary key,
 diaChiGiaoHang nvarchar(100),
 thoiGianGiaoHang datetime,
 thoiGianNhan datetime,
-trangThaiDonHang int,
+maTrangThaiDonHang int,
 tienShip int default 0,
-phuongThucThanhToan int,
+maPhuongThucThanhToan int,
 maKhachHang uniqueidentifier,
 );
 
@@ -84,7 +83,7 @@ trangThai nvarchar(30) unique not null
 
 CREATE TABLE PhuongThucThanhToan(
 maPhuongThuc int identity(1,1) primary key,
-trangThai nvarchar(30) unique not null
+phuongThucThanhToan nvarchar(30) unique not null
 );
 
 CREATE TABLE PhuongTien(
@@ -108,7 +107,7 @@ tongKhoiLuong float,
 
 CREATE TABLE DonMonAn(
 maDon int primary key,
-tongTienMon float,
+tongTienMon float DEFAULT 0,
 );
 
 CREATE TABLE NhanGiaoHang_DVC_PT_SP(
@@ -117,7 +116,7 @@ maShipper uniqueidentifier not null,
 bienKiemSoatXeGiao nvarchar(20),
 );
 
---Định
+--Ä�á»‹nh
 
 CREATE TABLE KhachHang(
 	maKhachHang uniqueidentifier default newid(),
@@ -167,7 +166,7 @@ CREATE TABLE SdtKhachHang(
 	primary key (SDT,maKhachHang)
 );
 
---Vũ
+--VÅ©
 
 CREATE TABLE KhieuNai(
 	maDonKhieuNai INT PRIMARY KEY,
@@ -194,7 +193,7 @@ CREATE TABLE QuyTrachNhiem(
 	PRIMARY KEY (maNhanVien,maDonKhieuNai)
 )
 
---Thái
+--ThÃ¡i
 
 CREATE TABLE MonAn (
 	maMonAn		int identity(1,1) Primary Key,
@@ -253,7 +252,7 @@ alter table SDTNhaHang ADD constraint fk_maNhaHangN foreign key(maNhaHang) refer
 alter table NhanVienChiNhanh add constraint fk_maNhanVienChiNhanh foreign key(maNhanVien) references NhanVien(maNhanVien)
 alter table NhanVienChiNhanh add constraint fk_maDonVi foreign key(maDonVi) references ChiNhanh(maDonVi)
 
---Alter Vũ
+--Alter VÅ©
 ALTER TABLE KhieuNai
 ADD  FOREIGN KEY (maDonKhieuNai) REFERENCES DonKhieuNai(maDonKhieuNai)
 
@@ -283,7 +282,7 @@ ADD FOREIGN KEY (maDonKhieuNai) REFERENCES DonKhieuNai(maDonKhieuNai)
 
 ALTER TABLE QuyTrachNhiem
 ADD FOREIGN KEY (maQuanLy) REFERENCES QuanLi(maNhanVien)
---alter Định
+--alter Ä�á»‹nh
 ALTER TABLE ChiNhanh
 	ADD CONSTRAINT FK_ChiNhanhChiNhanh foreign key (maChiNhanhCha) references ChiNhanh (maDonVi)
 ALTER TABLE ChiNhanh
@@ -294,7 +293,7 @@ ALTER TABLE MaKhuyenMai
 	ADD CONSTRAINT FK_MaKhuyenMaiKhachHang foreign key (maKhachHangSoHuu) references KhachHang (maKhachHang)
 ALTER TABLE SdtKhachHang
 	ADD CONSTRAINT FK_SdtKhachHangKhachHang foreign key (maKhachHang) references KhachHang (maKhachHang)
---Alter Thái
+--Alter ThÃ¡i
 ALTER TABLE MonAn
 	ADD CONSTRAINT FK_MonAnidNhaHangOffer foreign key (maNhaHangOffer) references NhaHang (maNhaHang)
 ALTER TABLE HangVanChuyen
@@ -308,7 +307,7 @@ ALTER TABLE TuVanGiaiDap
 ALTER TABLE TuVanGiaiDap
 	ADD CONSTRAINT FK_TuVanGiaiDapmaKhachHang foreign key (maKhachHang) references KhachHang (maKhachHang)
 
---alter Thương
+--alter ThÆ°Æ¡ng
 Alter table DonGiaoHangGiup
 	Add CONSTRAINT fk_idDonGiaoHangGiup foreign key (maDon) references DonVanChuyen(maDon);
 Alter table DonMonAn
@@ -325,11 +324,9 @@ Alter table DonVanChuyen
 	Add  foreign key (trangThaiDonHang) references TrangThaiDon(maTrangThai);
 
 
---bổ sung thuộc tính: Thương
+--bá»• sung thuá»™c tÃ­nh: ThÆ°Æ¡ng
 ALTER TABLE ChiNhanh
 	ADD soLuongNhanVien int DEFAULT 0;
-ALTER TABLE ChiNhanh
-	ADD ngayQLyBatDauLamViec date default GETDATE();
 ALTER TABLE ChiNhanh
 	ADD ngayQLyBatDauLamViec date default GETDATE();
 ALTER TABLE ChiNhanh
