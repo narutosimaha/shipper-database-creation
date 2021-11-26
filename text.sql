@@ -320,9 +320,9 @@ Alter table NhanGiaoHang_DVC_PT_SP
 Alter table NhanGiaoHang_DVC_PT_SP
 	Add CONSTRAINT fk_maShipperr foreign key (maShipper) references Shipper(maNhanVien);
 Alter table DonVanChuyen
-	Add  foreign key (phuongThucThanhToan) references PhuongThucThanhToan(maPhuongThuc);
+	Add  foreign key (maPhuongThucThanhToan) references PhuongThucThanhToan(maPhuongThuc);
 Alter table DonVanChuyen
-	Add  foreign key (trangThaiDonHang) references TrangThaiDon(maTrangThai);
+	Add  foreign key (maTrangThaiDonHang) references TrangThaiDon(maTrangThai);
 
 
 --bá»• sung thuá»™c tÃ­nh: ThÆ°Æ¡ng
