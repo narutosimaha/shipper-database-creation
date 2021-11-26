@@ -158,6 +158,7 @@ CREATE TABLE MaKhuyenMai(
 	dieuKienApDung nvarchar(200),
 	ngayHetHan DateTime,
 	moTa nvarchar(200),
+	daDungChua BIT DEFAULT 0,
 	maKhachHangSoHuu uniqueidentifier,
 );
 
