@@ -34,6 +34,12 @@ BEGIN
 	SELECT @sodon = count(*) from DonVanChuyen D,inserted I
 	where D.maKhachHang=I.maKhachHang
 	SELECT @maKhachHang=maKhachHang from inserted
+	IF (@sodon <5) 
+	BEGIN
+		update KhachHang
+		set loaiKhachHang = 'Dong',soDonDaDat=soDonDaDat+1
+		where maKhachHang= @maKhachHang
+	END;
 	IF (@sodon >=5 and @sodon<10) 
 	BEGIN
 		update KhachHang
@@ -99,11 +105,11 @@ CREATE TRIGGER UpdateDonVanChuyen on DonVanChuyen
 FOR UPDATE
 AS
 BEGIN
-	DECLARE @trangThai nvarchar(30)
+	DECLARE @trangThai int
 	DECLARE @makhachhang uniqueidentifier
 	DECLARE @maDon int
-	select @trangThai=trangThaiDonHang,@makhachhang=maKhachHang,@maDon=maDon from inserted
-	IF(@trangThai='bi khach hang huy')
+	select @trangThai=maTrangThaiDonHang,@makhachhang=maKhachHang,@maDon=maDon from inserted
+	IF(@trangThai=1)
 	BEGIN
 	update KhachHang
 	set soDonBiHuyDoKhachHang=soDonBiHuyDoKhachHang+1
@@ -142,7 +148,7 @@ BEGIN
 	select @maSoKhuyenMaiDon = MaKhuyenMai from DonKhuyenMai
 	IF(@maSoKhuyenMaiDon=@maSoKhuyenMai)
 	BEGIN
-		RAISERROR ('Khong the xoa don', 16, 1);
+		RAISERROR ('Khong the xoa ma khuyen mai', 16, 1);
 		RETURN;
 	END;
 	ELSE
@@ -187,7 +193,7 @@ GO
 -- +Nếu tổng số đơn của nhà hàng từ 20-29 sẽ được quà có giá trị bằng tổng số tiền đơn món ăn thu được từ nhà hàng * 0.02
 -- +Nếu tổng số đơn của nhà hàng từ 30 trở lên sẽ được quà có giá trị bằng tổng số tiền đơn món ăn thu được từ nhà hàng * 0.05
 --Viết hàm có tham số là mã nhà hàng và trả về số tiền nhà hàng được thưởng.
-CREATE FUNCTION tinhTongDiscount (@maNhaHang int)
+CREATE FUNCTION tinhTienThuong (@maNhaHang int)
 RETURNS float
 AS
 BEGIN
@@ -216,7 +222,7 @@ BEGIN
 	RETURN @tongtientra
 END;
 GO
-SELECT dbo.tinhTongDiscount(1)
+SELECT dbo.tinhTienThuong(1)
 GO
 
 --câu4b
