@@ -139,7 +139,7 @@ CREATE TABLE KhachHang(
 CREATE TABLE ChiNhanh(
 		maDonVi int identity(1,1) Primary Key,
 		maSoThue int,
-		tenChiNhanh char(50),
+		tenChiNhanh nvarchar(50),
 		diaChi nvarchar(50),
 		maNVQuanLy uniqueidentifier,
 		maChiNhanhCha int,
@@ -330,5 +330,3 @@ ALTER TABLE ChiNhanh
 	ADD soLuongNhanVien int DEFAULT 0;
 ALTER TABLE ChiNhanh
 	ADD ngayQLyBatDauLamViec date default GETDATE();
-ALTER TABLE ChiNhanh
-	ADD tenChiNhanh nvarchar(30) null;
