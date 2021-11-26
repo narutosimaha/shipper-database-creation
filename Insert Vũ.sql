@@ -1,21 +1,4 @@
-﻿/****** Script for SelectTopNRows command from SSMS  ******/
-SELECT TOP (1000) [maKhachHang]
-      ,[CCCDorVisa]
-      ,[ho]
-      ,[tenLot]
-      ,[Ten]
-      ,[ngaySinh]
-      ,[gioiTinh]
-      ,[taiKhoan]
-      ,[matKhau]
-      ,[diaChi]
-      ,[ngayThamGia]
-      ,[loaiKhachHang]
-      ,[soDonBiHuyDoKhachHang]
-      ,[soDonDaDat]
-  FROM [Shipper10DB].[dbo].[KhachHang]
-
-  GO
+﻿
 INSERT INTO DonVanChuyen(diaChiGiaoHang, thoiGianGiaoHang,thoiGianNhan, trangThaiDonHang,tienShip,
 phuongThucThanhToan,maKhachHang) VALUES
 (N'Ninh Hòa','2021-11-20 15:46:11','2021-11-20 16:05:12', 1, 9100,2,'E59CCDD7-7ACD-47FC-8740-9E4E8709EFCC'),
