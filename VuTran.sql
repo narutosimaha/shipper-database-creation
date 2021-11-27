@@ -3,11 +3,11 @@
 -------------------CAU1 PROCEDURE INSERT BẢNG NHÂN VIÊN--------------------------
 CREATE OR ALTER PROCEDURE insertNhanVien
 @ho nvarchar(20),@tenLot nvarchar(20) ='',@ten nvarchar(20), @luong decimal,@taiKhoan nvarchar(50)='',
-@matKhau nvarchar(50) ='',@loaiNhanVien nvarchar(20)='',@chiSoUyTin int=5
+@matKhau nvarchar(50) ='',@loaiNhanVien nvarchar(20)='',@chiSoUyTin decimal(2,1)=5.0,@ngaySinh Date
 AS
 	IF(@chiSoUyTin>5 OR @chiSoUyTin<1)
 		BEGIN 
-		--RAISERROR('Chi so uy tin phai la so nguyen tu 1 den 5',16,1);
+			RAISERROR('Chi so uy tin phai la so nam trong khoang tu 1 den 5',16,1);
 			RETURN;
 		END
 	IF(@luong < 0)
@@ -30,13 +30,18 @@ AS
 			RAISERROR('Ten chi duoc chua cac ky tu Alphabet',16,1);
 			RETURN
 		END
+	IF(DATEDIFF(year,@ngaySinh,GETDATE())<18)
+		BEGIN
+			RAISERROR('Nhan vien phai tren 18 tuoi',16,1);
+			RETURN
+		END
 	IF(@taiKhoan IN ((SELECT taikhoan FROM NhanVien UNION SELECT taiKhoan FROM NhaHang) UNION SELECT taiKhoan FROM KhachHang))
 		BEGIN
 			RAISERROR('Tai khoan trung, xin thu lai bang ten khac',16,1);
 			RETURN
 		END
-	INSERT INTO NhanVien (ho, tenLot,ten,luong, taiKhoan,matKhau,loaiNhanVien,chiSoUyTin)
-	VALUES (@ho,@tenLot,@ten,@luong, @taiKhoan,@matKhau,@loaiNhanVien,@chiSoUyTin)
+	INSERT INTO NhanVien (ho, tenLot,ten,luong, taiKhoan,matKhau,loaiNhanVien,chiSoUyTin,ngaySinh)
+	VALUES (@ho,@tenLot,@ten,@luong, @taiKhoan,@matKhau,@loaiNhanVien,@chiSoUyTin,@ngaySinh)
 GO
 EXEC insertNhanVien @ho='Ho',@ten='Quang'
 ,@luong='1000', @taiKhoan='hoQuang1234',@matKhau='123456789',@loaiNhanVien='quan ly'
