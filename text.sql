@@ -324,7 +324,8 @@ Alter table DonVanChuyen
 	Add  foreign key (maPhuongThucThanhToan) references PhuongThucThanhToan(maPhuongThuc);
 Alter table DonVanChuyen
 	Add  foreign key (maTrangThaiDonHang) references TrangThaiDon(maTrangThai);
-
+Alter table DonVanChuyen
+	Add  foreign key (maKhachHang) references KhachHang(maKhachHang);
 
 --bá»• sung thuá»™c tÃ­nh: ThÆ°Æ¡ng
 ALTER TABLE ChiNhanh
