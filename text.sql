@@ -203,6 +203,7 @@ CREATE TABLE MonAn (
 	donGia		int not null,
 	moTa		nvarchar(300),
 	maNhaHangOffer	int not null,	
+	image 		varchar(300)
 );
 CREATE TABLE NhaHang (
 	maNhaHang	int identity(1,1) Primary Key,
