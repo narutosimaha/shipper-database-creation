@@ -25,7 +25,7 @@ GO
 --câu2a--
 --Bảng đơn vận chuyển: tự động cập nhật loại khách hàng, số đơn đã đặt khi insert và delete vào bảng khách hàng.
 --Insert
-CREATE TRIGGER InsertDonVanChuyen ON DonVanChuyen
+CREATE TRIGGER InsertDonVanChuyenTrigger ON DonVanChuyen
 FOR  INSERT
 AS
 BEGIN
