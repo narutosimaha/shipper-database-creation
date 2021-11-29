@@ -12,7 +12,7 @@ AS
 		END
 	IF(@a_donGiaUuDai>@a_donGiaMon)
 		BEGIN
-			RAISERROR('Giá ưu đãi phải thấp hơn giá gốc',16,1);
+			RAISERROR('Giá ưu đãi không được lớn hơn giá gốc',16,1);
 			RETURN
 		END
 	INSERT INTO ChiTietDonMonAn(maDonMonAn,maMonAn,soLuong,apDungUuDai,donGiaMon,donGiaUuDai)
