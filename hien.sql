@@ -143,10 +143,8 @@ INSTEAD OF DELETE
 AS
 BEGIN
 	DECLARE @maSoKhuyenMai int
-	DECLARE @maSoKhuyenMaiDon int
-	select @maSoKhuyenMai = MaKhuyenMai from deleted
-	select @maSoKhuyenMaiDon = MaKhuyenMai from DonKhuyenMai
-	IF(@maSoKhuyenMaiDon=@maSoKhuyenMai)
+	select @maSoKhuyenMai = maKhuyenMai from deleted
+	IF(@maSoKhuyenMai in (SELECT maKhuyenMai FROM DonKhuyenMai))
 	BEGIN
 		RAISERROR ('Khong the xoa ma khuyen mai', 16, 1);
 		RETURN;
